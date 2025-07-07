@@ -12,7 +12,7 @@ engine = create_engine(
     SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
 )
 TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
+client = TestClient(app)
 # Créer les tables
 Base.metadata.create_all(bind=engine)
 
@@ -50,7 +50,7 @@ SAMPLE_PRODUCT = {
 
 # Tests principaux
 def test_create_product(client):
-    response = client.post("/api/products", json={"name": "ordi", "description":"test ordi","stock":10,"price":50})
+    response = client.post("/api/products", json={"name": "ordi", "description":"test ordi","stock":10,"price":50,"prices": [{"amount": 9.99}]})
     assert response.status_code == 201
     data = response.json()
     assert data["name"] == SAMPLE_PRODUCT["name"]
