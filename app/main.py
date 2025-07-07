@@ -12,7 +12,7 @@ app = FastAPI()
 # Base.metadata.create_all(bind=engine)
 
 app.include_router(product.router, prefix="/api")
-
+Base.metadata.create_all(bind=engine)
 instrumentator = Instrumentator(
     should_group_status_codes=True,
     should_ignore_untemplated=True,
@@ -22,6 +22,4 @@ Instrumentator().instrument(app).expose(app)
 
 
 
-def init_db():
-    """Fonction à appeler manuellement pour créer les tables."""
-    Base.metadata.create_all(bind=engine)
+
