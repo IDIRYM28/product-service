@@ -32,7 +32,7 @@ def test_get_product(client):
     product_id = create_response.json()["id"]
     
     # Puis le récupérer
-    get_resp = client.get(f"/api/products/{product_id}")
+    get_resp = client.get(f"/api/products/1}")
     assert get_resp.status_code == 200, f"GET /api/products/{product_id} a retourné {get_resp.status_code}"
     data = get_resp.json()
     assert get_resp.json()["id"] == product_id
