@@ -36,7 +36,7 @@ def db_session(db_engine):
 @pytest.fixture
 def client(db_session):
     """Client FastAPI de test"""
-    from app.main import app
+    from app.main import app as fastapi_app
     from app.config.database import get_db
     
     def override_get_db():
@@ -44,8 +44,8 @@ def client(db_session):
             yield db_session
         finally:
             db_session.rollback()
-
-    app.dependency_overrides[get_db] = override_get_db
+    import app.main as main_mod
+    fastapi_app.dependency_overrides[get_db] = override_get_db
     from fastapi.testclient import TestClient
     yield TestClient(app)
-    app.dependency_overrides.clear()
+    
