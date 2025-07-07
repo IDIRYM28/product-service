@@ -47,5 +47,5 @@ def client(db_session):
     import app.main as main_mod
     fastapi_app.dependency_overrides[get_db] = override_get_db
     from fastapi.testclient import TestClient
-    yield TestClient(app)
+    yield TestClient(fastapi_app)
     
