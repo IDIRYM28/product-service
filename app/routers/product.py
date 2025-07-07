@@ -6,7 +6,7 @@ from ..models.product import Product as ProductModel
 from ..models.price import Price as PriceModel
 from ..config.schemas import ProductCreate, ProductResponse, PriceCreate, ProductUpdate
 from sqlalchemy.exc import SQLAlchemyError
-
+from .rabbitmq import publish_product
 router = APIRouter(
     prefix="/products",
     tags=["products"],
@@ -56,7 +56,7 @@ def create_product(
         db.add(db_product)
         db.commit()
         db.refresh(db_product)
-
+        
         for price in product_data.prices:
             db_price = PriceModel(
                 amount=price.amount,
@@ -66,6 +66,8 @@ def create_product(
 
         db.commit()
         db.refresh(db_product)
+        product = db.query(ProductModel).options(joinedload(ProductModel.prices)).filter(ProductModel.id == product_id).first()
+        publish_product(ProductResponse.model_validate(product).model_dump())
         return ProductResponse.model_validate(db_product)
 
     except SQLAlchemyError as e:
@@ -183,6 +185,10 @@ def update_product(
 
         db.commit()
         db.refresh(product)
+        product = db.query(ProductModel).options(joinedload(ProductModel.prices)).filter(ProductModel.id == product_id).first()
+
+        # Envoie à RabbitMQ
+        publish_product(ProductResponse.model_validate(product).model_dump())
         return ProductResponse.model_validate(product)
 
     except SQLAlchemyError as e:
