@@ -22,8 +22,8 @@ def test_create_product(client):
     response = client.post("/api/products", json={"name": "ordi", "description":"test ordi","stock":10,"price":50,"prices": [{"amount": 9.99}]})
     assert response.status_code == 201
     data = response.json()
-    assert data["name"] == SAMPLE_PRODUCT["name"]
-    assert data["stock"] == SAMPLE_PRODUCT["stock"]
+    assert data["name"] == 'ordi'
+    assert data["stock"] == 10
 
 def test_get_product(client):
     # Créer d'abord un produit
