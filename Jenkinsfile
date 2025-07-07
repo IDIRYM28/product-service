@@ -18,7 +18,7 @@ pipeline {
 		bat '''
 		  docker run --rm ^
 			-e DATABASE_URL="sqlite:///:memory:" ^
-			-v "%WORKSPACE%":. ^
+			-v "%WORKSPACE%\\product-service":/app ^
 			-w /app ^
 			python:3.11-slim ^
 			sh -c "pip install --upgrade pip && \
