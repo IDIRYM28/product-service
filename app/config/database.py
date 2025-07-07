@@ -3,7 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base
 from urllib.parse import quote
 from contextlib import contextmanager
 from dotenv import load_dotenv, find_dotenv
-
+import os 
 # Charger automatiquement le premier `.env` trouvé dans l'arborescence
 load_dotenv(find_dotenv())
 
