@@ -3,7 +3,7 @@ from fastapi.testclient import TestClient
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.pool import StaticPool
-
+os.environ.setdefault("RABBITMQ_URL", "amqp://guest:guest@rabbitmq:5672/")
 from app.main import app
 from app.config.database import Base, get_db
 os.environ.setdefault("RABBITMQ_URL", "amqp://guest:guest@rabbitmq:5672/")
