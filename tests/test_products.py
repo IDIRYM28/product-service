@@ -28,6 +28,7 @@ def test_create_product(client):
 def test_get_product(client):
     # Créer d'abord un produit
     create_response = client.post("/api/products", json={"name": "ordi update", "description":"test ordi update","stock":10,"price":50,"prices": [{"amount": 9.99}]})
+    print('yyyyyy',create_response)
     assert create_response.status_code == 201, f"POST /api/products a retourné {create_response.status_code}, détail : {create_response.json()}"
     product_id = create_response.json()["id"]
     
