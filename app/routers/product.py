@@ -66,7 +66,7 @@ def create_product(
 
         db.commit()
         db.refresh(db_product)
-        
+        publish_client({"id": product_data.id, "name": product_data.name, "price": product_data.price})
         return ProductResponse.model_validate(db_product)
 
     except SQLAlchemyError as e:
@@ -184,10 +184,10 @@ def update_product(
 
         db.commit()
         db.refresh(product)
-        product = db.query(ProductModel).options(joinedload(ProductModel.prices)).filter(ProductModel.id == product_id).first()
+        
 
         # Envoie à RabbitMQ
-        publish_product(ProductResponse.model_validate(product).model_dump())
+        publish_client({"id": product_data.id, "name": product_data.name, "price": product_data.price})
         return ProductResponse.model_validate(product)
 
     except SQLAlchemyError as e:
