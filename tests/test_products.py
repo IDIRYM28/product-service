@@ -61,7 +61,7 @@ def test_update_product(client):
 
 def test_delete_product(client):
     # Créer un produit
-    create_response = client.post("/api/products", json={"name": "ordi5", "description":"test ordi","stock5":10,"price":50,"prices": [{"amount": 9.99}]})
+    create_response = client.post("/api/products", json={"name": "ordi5", "description":"test ordi5","stock":10,"price":50,"prices": [{"amount": 9.99}]})
     product_id = create_response.json()["id"]
 
     # Supprimer
