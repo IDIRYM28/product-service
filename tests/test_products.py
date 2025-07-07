@@ -5,40 +5,9 @@ from sqlalchemy.orm import sessionmaker
 from app.main import app
 from app.config.database import Base, get_db
 
-# Configuration de la base de données de test
-SQLALCHEMY_DATABASE_URL = "sqlite:///./test.db"
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
-)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 client = TestClient(app)
-# Créer les tables
-Base.metadata.create_all(bind=engine)
 
-# Fixture pour la session DB
-@pytest.fixture
-def db_session():
-    connection = engine.connect()
-    transaction = connection.begin()
-    session = TestingSessionLocal(bind=connection)
-    yield session
-    session.close()
-    transaction.rollback()
-    connection.close()
-
-# Fixture pour le client de test
-@pytest.fixture
-def client(db_session):
-    def override_get_db():
-        try:
-            yield db_session
-        finally:
-            db_session.close()
-
-    app.dependency_overrides[get_db] = override_get_db
-    yield TestClient(app)
-    app.dependency_overrides.clear()
 
 # Données de test
 SAMPLE_PRODUCT = {
