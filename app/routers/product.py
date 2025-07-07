@@ -6,7 +6,7 @@ from ..models.product import Product as ProductModel
 from ..models.price import Price as PriceModel
 from ..config.schemas import ProductCreate, ProductResponse, PriceCreate, ProductUpdate
 from sqlalchemy.exc import SQLAlchemyError
-from .rabbitmq import publish_product
+from .rabbitmq import publish_client
 router = APIRouter(
     prefix="/products",
     tags=["products"],
