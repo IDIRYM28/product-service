@@ -23,7 +23,7 @@ pipeline {
 			python:3.11-slim ^
 			sh -c "pip install --upgrade pip && \
 				   pip install -r requirements.txt && \
-				   pytest --maxfail=1 --disable-warnings -q --junitxml=reports/results.xml"
+				   pytest --maxfail=1 --disable-warnings -q --junitxml=results.xml"
 		'''
 	  }
 	  post {
