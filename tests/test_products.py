@@ -37,7 +37,7 @@ def test_get_product():
     get_resp = client.get(f"/api/products/{cid}")
     assert get_resp.status_code == 200
     data = get_resp.json()
-    assert data["id"] == product_id
+    assert data["id"] == cid
 
 def test_get_all_products(client):
     # Créer un produit
