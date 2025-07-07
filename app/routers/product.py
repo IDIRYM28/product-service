@@ -66,8 +66,7 @@ def create_product(
 
         db.commit()
         db.refresh(db_product)
-        product = db.query(ProductModel).options(joinedload(ProductModel.prices)).filter(ProductModel.id == product_id).first()
-        publish_product(ProductResponse.model_validate(product).model_dump())
+        
         return ProductResponse.model_validate(db_product)
 
     except SQLAlchemyError as e:
