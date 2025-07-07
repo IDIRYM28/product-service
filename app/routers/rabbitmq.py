@@ -10,6 +10,8 @@ RABBIT_URL = os.getenv("RABBITMQ_URL")
 
 params = pika.URLParameters(RABBIT_URL)
 
+
+
 # Fonction de publication : connexion établie à chaque appel
 def publish_client(product: dict):
     # Crée une connexion et un canal à la demande
