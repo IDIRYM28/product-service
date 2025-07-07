@@ -28,7 +28,7 @@ pipeline {
 	  }
 	  post {
 		always {
-		  junit 'reports/results.xml'
+		  junit 'results.xml'
 		}
 		failure {
 		  echo '❌ Les tests ont échoué !'
