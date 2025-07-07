@@ -44,8 +44,9 @@ def client(db_session):
         yield client
 @pytest.fixture(autouse=True)
 def override_dependencies(monkeypatch):
+    import app.routers.product as ap
     import app.routers.rabbitmq as msg_mod
-    monkeypatch.setattr(app, "publish_client", lambda payload: None)
+    monkeypatch.setattr(ap, "publish_client", lambda payload: None)
 @pytest.fixture
 def sample_product_data():
     return {
