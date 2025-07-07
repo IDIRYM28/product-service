@@ -11,6 +11,7 @@ class Product(Base):
     name = Column(String, unique=True, nullable=False)
     description = Column(String)
     stock = Column(Integer, nullable=False)
+    price = Column(Float, nullable=False)
     created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
     prices = relationship(
         "Price",

@@ -49,6 +49,7 @@ def create_product(
 
         db_product = ProductModel(
             name=product_data.name,
+            price=product_data.price,
             description=product_data.description,
             stock=product_data.stock
         )

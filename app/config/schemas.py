@@ -17,6 +17,7 @@ class ProductBase(BaseModel):
     name: str
     description: Optional[str] = None
     stock: int
+    price:float
 
 class ProductCreate(ProductBase):
     prices: List[PriceCreate]
@@ -26,6 +27,7 @@ class ProductUpdate(BaseModel):
     description: Optional[str] = None
     stock: Optional[int] = None
     prices: Optional[List[PriceCreate]] = None
+    price: Optional[float] = None
 
 class Product(ProductBase):
     id: int
