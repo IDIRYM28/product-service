@@ -43,7 +43,7 @@ pipeline {
           docker build ^
             -t %DOCKER_REGISTRY%:%IMAGE_TAG% ^
             -f Dockerfile ^
-            product-service
+            
         """
         withCredentials([usernamePassword(
           credentialsId: "${REGISTRY_CRED_ID}",
