@@ -2,8 +2,15 @@ from sqlalchemy import create_engine, text
 from sqlalchemy.orm import sessionmaker, declarative_base
 from urllib.parse import quote
 from contextlib import contextmanager
+from dotenv import load_dotenv, find_dotenv
 
-DATABASE_URL = "postgresql://postgres:196810@localhost:5432/msprB4Db"
+# Charger automatiquement le premier `.env` trouvé dans l'arborescence
+load_dotenv(find_dotenv())
+
+DATABASE_URL = os.getenv("DATABASE_URL")
+if not DATABASE_URL:
+    raise RuntimeError("DATABASE_URL non défini dans .env")
+
 
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
