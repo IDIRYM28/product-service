@@ -42,7 +42,7 @@ def client(db_session):
     app.dependency_overrides[get_db] = override_get_db
     with TestClient(app) as client:
         yield client
-import app.rabbitmq as msg_mod
+import app.routers.rabbitmq as msg_mod
 monkeypatch.setattr(app, "publish_client", lambda payload: None)
 @pytest.fixture
 def sample_product_data():
