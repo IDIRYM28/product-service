@@ -19,7 +19,7 @@ def publish_client(product: dict):
     channel.basic_publish(
         exchange="produits",
         routing_key="",
-        body=json.dumps(product,default=str),
+        body=json.dumps(product),
         properties=pika.BasicProperties(content_type='application/json')
     )
     connection.close()
