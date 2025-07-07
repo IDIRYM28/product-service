@@ -40,8 +40,7 @@ pipeline {
       steps {
         bat label: 'Build & Push', script: """
           REM → build de l’image de production
-          docker build -t %DOCKER_REGISTRY%:%IMAGE_TAG% 
-            
+          docker build -t %DOCKER_REGISTRY%:%IMAGE_TAG% .
         """
         withCredentials([usernamePassword(
           credentialsId: "${REGISTRY_CRED_ID}",
