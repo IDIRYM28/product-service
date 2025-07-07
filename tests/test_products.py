@@ -29,14 +29,15 @@ def test_get_product(client):
     # Créer d'abord un produit
     create_response = client.post("/api/products", json={"name": "ordi update", "description":"test ordi update","stock":10,"price":50,"prices": [{"amount": 9.99}]})
     print('yyyyyy',create_response.json())
-    assert create_response.status_code == 201, f"POST /api/products a retourné {create_response.status_code}, détail : {create_response.json()}"
-    product_id = create_response.json()["id"]
+    assert create_response.status_code == 201
+    product= create_response.json()
     
     # Puis le récupérer
-    get_resp = client.get("/api/products/1")
-    assert get_resp.status_code == 200, f"GET /api/products/{product_id} a retourné {get_resp.status_code}"
+    cid = product["id"]
+    get_resp = client.get(f"/api/products/{cid}")
+    assert get_resp.status_code == 200
     data = get_resp.json()
-    assert get_resp.json()["id"] == product_id
+    assert data["id"] == product_id
 
 def test_get_all_products(client):
     # Créer un produit
