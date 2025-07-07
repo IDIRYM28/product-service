@@ -6,7 +6,7 @@ from sqlalchemy.pool import StaticPool
 
 from app.main import app
 from app.config.database import Base, get_db
-
+os.environ.setdefault("RABBITMQ_URL", "amqp://guest:guest@rabbitmq:5672/")
 SQLALCHEMY_DATABASE_URL = "sqlite:///:memory:"
 
 engine = create_engine(
