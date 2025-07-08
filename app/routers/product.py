@@ -47,6 +47,8 @@ def create_product(
                 detail="Tous les prix doivent être supérieurs à 0"
             )
 
+
+
         db_product = ProductModel(
             name=product_data.name,
             price=product_data.price,
